@@ -2,18 +2,7 @@
 
 Exports meeting notes and transcripts from [Granola](https://www.granola.so)'s local cache to markdown files.
 
-## 📤 What it exports
-
-- 🤖 **AI-generated meeting notes** - Granola's AI summaries and notes
-- 🎙️ **Full transcripts** - Complete word-for-word transcripts when available
-- 📄 **Both together** - Files include both notes and transcripts when both exist
-
-## ✨ Features
-
-- ⚡ **Smart caching** - Only writes changed files (efficient for scheduled runs)
-- 🔍 **Version detection** - Auto-detects latest Granola cache version (`cache-v3.json`, `cache-v4.json`, etc.)
-- 🛡️ **Data protection** - Preserves transcripts even if Granola purges them from cache
-- 🕐 **Background service** - Built-in macOS LaunchAgent for automatic exports every 6 hours
+Granary exports AI-generated notes and full transcripts to markdown. It auto-detects the latest Granola cache version, only writes changed files, and preserves transcripts even after Granola purges them from its cache. A built-in macOS LaunchAgent can run exports automatically every 6 hours.
 
 ## 🛠️ Installation
 
@@ -36,6 +25,8 @@ go install github.com/wassimk/granary@latest
 ```bash
 granary run
 ```
+
+By default, Granary reads from `~/Library/Application Support/Granola/cache-v*.json` and exports markdown files to `~/.local/share/granola-transcripts/`. Each file is named `YYYY-MM-DD_Meeting_Title.md`.
 
 #### Options
 
@@ -70,27 +61,13 @@ granary version    # Show version
 granary help       # Show help
 ```
 
-## ⚙️ How it works
+## ⚠️ Transcript availability
 
-- **Reads from:** `~/Library/Application Support/Granola/cache-v*.json` (auto-detects version)
-- **Exports to:** `~/.local/share/granola-transcripts/`
-- **Format:** Markdown with AI notes section and transcript section (when available)
-- **Filename:** `YYYY-MM-DD_Meeting_Title.md`
+Granola does not keep all transcripts in its local cache. Transcripts are fetched from Granola's servers on demand when you open a meeting, and older ones are periodically purged. New meetings will have transcripts in cache after you view them in Granola, but previously viewed meetings may not.
 
-## ⚠️ Important: Transcript Availability
-
-**Granola does not keep all transcripts in its local cache.** Transcripts are fetched from Granola's servers on-demand when you open a meeting, and older transcripts are periodically purged from the cache.
-
-This means:
-
-- **New meetings:** Transcripts appear in cache after you view them in Granola
-- **Old meetings:** Even if you viewed them before, the transcript may no longer be in cache
-
-**Data protection:** Once this tool exports a transcript, it preserves it forever. Even if Granola later purges it from cache. The tool merges the latest AI notes with any previously exported transcript, so you never lose data.
+Once Granary exports a transcript, it preserves it permanently. On future runs it merges the latest AI notes with any previously exported transcript, so you never lose data.
 
 ## 📄 Output format
-
-Each exported file contains:
 
 ```markdown
 # Meeting Title
