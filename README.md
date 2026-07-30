@@ -1,5 +1,10 @@
 # Granary
 
+> [!IMPORTANT]
+> **This project is archived as of July 2026.**
+>
+> Granola began encrypting its local cache, which is the source granary reads from, so exports no longer work. This tool served its purpose, but for quite a while now I've been relying on Granola's MCP for my day to day needs. It's a bummer to lose a standing export of the transcripts, but keeping up with Granola's cache format changes is a game of whack a mole that isn't worth the maintenance. See [#13](https://github.com/wassimk/granary/issues/13) for the details.
+
 Exports meeting notes and transcripts from [Granola](https://www.granola.so)'s local cache to markdown files.
 
 Granary exports AI-generated notes and full transcripts to markdown. It auto-detects the latest Granola cache version, only writes changed files, and preserves transcripts even after Granola purges them from its cache. A built-in macOS LaunchAgent can run exports automatically every 2 hours.
